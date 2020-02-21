@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_add_courier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Futár regisztrálása" />
+
+        <Button
+            android:id="@+id/btn_manage_courier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Futárok kezelése" />
+
+        <Button
+            android:id="@+id/btn_logoutAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kilépés" />
+
+    </LinearLayout>
+</RelativeLayout>
