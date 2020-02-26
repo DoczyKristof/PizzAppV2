@@ -63,6 +63,7 @@ public class RegCurActivity extends AppCompatActivity {
                                         courier.put("Email", email);
                                         courier.put("Pw", pw);
                                         courier.put("Phone", phone);
+                                        courier.put("activity", 1);
                                         dFerenc.set(courier).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
