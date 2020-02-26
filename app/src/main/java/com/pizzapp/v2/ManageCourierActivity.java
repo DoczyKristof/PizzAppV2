@@ -8,17 +8,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -33,6 +29,7 @@ public class ManageCourierActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     List<String> cursList;
     Button btn_delCur, btn_modCur;
+
     //---------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class ManageCourierActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         setCurInactive(getSelectedName());
                         Toast.makeText(ManageCourierActivity.this,
-                                "A "+ getSelectedName() +" nevű futár byebye"
+                                "A " + getSelectedName() + " nevű futár byebye"
                                 , Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -82,7 +79,7 @@ public class ManageCourierActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         //---------------
-        CFerenc.whereEqualTo("activity",1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        CFerenc.whereEqualTo("activity", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -95,12 +92,14 @@ public class ManageCourierActivity extends AppCompatActivity {
             }
         });
     }
+
     //---------------
-    private String getSelectedName(){
+    private String getSelectedName() {
         return spinner.getSelectedItem().toString();
     }
+
     //---------------
-    private void setCurInactive(String name){
-        CFerenc.document(name).update("activity",0);
+    private void setCurInactive(String name) {
+        CFerenc.document(name).update("activity", 0);
     }
 }
