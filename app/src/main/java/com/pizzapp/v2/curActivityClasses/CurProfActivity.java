@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.curActivityClasses;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.pizzapp.v2.R;
 
 public class CurProfActivity extends AppCompatActivity {
     //---------

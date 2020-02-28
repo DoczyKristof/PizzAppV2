@@ -10,13 +10,13 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".CurProfActivity"></activity>
-        <activity android:name=".ManageCourierActivity" />
-        <activity android:name=".CurMenuActivity" />
-        <activity android:name=".RegCurActivity" />
-        <activity android:name=".AdminMenuActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".fakeLoad">
+        <activity android:name=".curActivityClasses.CurProfActivity"></activity>
+        <activity android:name=".adminActivityClasses.ManageCourierActivity" />
+        <activity android:name=".curActivityClasses.CurMenuActivity" />
+        <activity android:name=".adminActivityClasses.RegCurActivity" />
+        <activity android:name=".adminActivityClasses.AdminMenuActivity" />
+        <activity android:name=".misc.LoginActivity" />
+        <activity android:name=".misc.fakeLoad">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

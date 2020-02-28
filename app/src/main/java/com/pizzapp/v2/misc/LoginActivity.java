@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.misc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pizzapp.v2.curActivityClasses.CurMenuActivity;
+import com.pizzapp.v2.R;
+import com.pizzapp.v2.adminActivityClasses.AdminMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
     //---------

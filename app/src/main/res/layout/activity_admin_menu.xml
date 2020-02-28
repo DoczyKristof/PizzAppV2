@@ -6,28 +6,49 @@
     android:gravity="center">
 
     <LinearLayout
+        android:id="@+id/lnrAdminMenu1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_add_courier"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Futár regisztrálása" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/add_cur"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_manage_courier"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Futárok kezelése" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/mng_cur" />
 
-        <Button
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnrAdminMenu2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lnrAdminMenu1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
             android:id="@+id/btn_logoutAdmin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kilépés" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/logout" />
+
+        <ImageButton
+            android:id="@+id/btn_exitAdmin"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/exit_app" />
 
     </LinearLayout>
 </RelativeLayout>

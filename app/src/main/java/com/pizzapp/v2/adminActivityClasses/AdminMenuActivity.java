@@ -1,15 +1,18 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.adminActivityClasses;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pizzapp.v2.R;
+import com.pizzapp.v2.misc.fakeLoad;
+
 public class AdminMenuActivity extends AppCompatActivity {
     //---------
-    private Button btn_regCur, btn_logout, btn_manageCur;
+    private ImageButton btn_regCur, btn_logout, btn_manageCur, btn_exit;
 
     //---------
     @Override
@@ -41,6 +44,14 @@ public class AdminMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminMenuActivity.this, ManageCourierActivity.class));
             }
         });
+        //---------
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
     }
 
     //---------
@@ -48,6 +59,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         btn_regCur = findViewById(R.id.btn_add_courier);
         btn_logout = findViewById(R.id.btn_logoutAdmin);
         btn_manageCur = findViewById(R.id.btn_manage_courier);
+        btn_exit = findViewById(R.id.btn_exitAdmin);
     }
     //---------
 }

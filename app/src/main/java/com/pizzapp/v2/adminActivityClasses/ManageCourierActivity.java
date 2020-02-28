@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.adminActivityClasses;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pizzapp.v2.R;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.curActivityClasses;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.pizzapp.v2.R;
+import com.pizzapp.v2.misc.fakeLoad;
 
 public class CurMenuActivity extends AppCompatActivity {
     //---------

@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.adminActivityClasses;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.pizzapp.v2.R;
 
 import java.util.HashMap;
 import java.util.Map;

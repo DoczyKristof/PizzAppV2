@@ -1,4 +1,4 @@
-package com.pizzapp.v2;
+package com.pizzapp.v2.misc;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.pizzapp.v2.R;
 
 import maes.tech.intentanim.CustomIntent;
 

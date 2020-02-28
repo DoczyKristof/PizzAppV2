@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:gravity="center"
-    tools:context=".fakeLoad">
+    tools:context=".misc.fakeLoad">
 
     <LinearLayout
         android:layout_width="wrap_content"
