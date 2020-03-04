@@ -6,23 +6,49 @@
     android:gravity="center">
 
     <LinearLayout
+        android:id="@+id/lnrCurMenu1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="50dp">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_cur_prof"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Profil" />
+        <ImageButton
+            android:id="@+id/btn_curprof"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/courier" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/btn_mngDel"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/pizzacar"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnrCurMenu2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lnrCurMenu1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
             android:id="@+id/btn_logoutCur"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kilépés" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/logout" />
+
+        <ImageButton
+            android:id="@+id/btn_exitCur"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/bg"
+            android:src="@drawable/exitapp" />
 
     </LinearLayout>
 </RelativeLayout>

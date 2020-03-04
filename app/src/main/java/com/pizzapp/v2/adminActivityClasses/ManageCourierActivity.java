@@ -66,7 +66,6 @@ public class ManageCourierActivity extends AppCompatActivity {
             }
         });
     }
-
     //---------
     private void inito() {
         btn_delCur = findViewById(R.id.btn_delCur);
@@ -78,7 +77,6 @@ public class ManageCourierActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, cursList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
         //---------------
         CFerenc.whereEqualTo("activity", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -92,13 +90,12 @@ public class ManageCourierActivity extends AppCompatActivity {
                 }
             }
         });
+        spinner.setAdapter(adapter);
     }
-
     //---------------
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();
     }
-
     //---------------
     private void setCurInactive(String name) {
         CFerenc.document(name).update("activity", 0);

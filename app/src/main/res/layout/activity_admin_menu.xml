@@ -17,14 +17,14 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/bg"
-            android:src="@drawable/add_cur"/>
+            android:src="@drawable/addcur"/>
 
         <ImageButton
             android:id="@+id/btn_manage_courier"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/bg"
-            android:src="@drawable/mng_cur" />
+            android:src="@drawable/mngcur" />
 
     </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/bg"
-            android:src="@drawable/exit_app" />
+            android:src="@drawable/exitapp" />
 
     </LinearLayout>
 </RelativeLayout>

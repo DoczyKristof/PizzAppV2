@@ -1,10 +1,12 @@
 package com.pizzapp.v2.adminActivityClasses;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pizzapp.v2.R;
@@ -33,8 +35,24 @@ public class AdminMenuActivity extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminMenuActivity.this, fakeLoad.class));
-                finish();
+                AlertDialog.Builder exitAlert = new AlertDialog.Builder(AdminMenuActivity.this);
+                exitAlert.setMessage("Biztosan ki szeretnél lépni?");
+                exitAlert.setCancelable(true);
+                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(AdminMenuActivity.this, fakeLoad.class));
+                        finish();
+                    }
+                });
+                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog exitAlertDlg = exitAlert.create();
+                exitAlertDlg.show();
             }
         });
         //---------
@@ -48,8 +66,24 @@ public class AdminMenuActivity extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                System.exit(0);
+                AlertDialog.Builder exitAlert = new AlertDialog.Builder(AdminMenuActivity.this);
+                exitAlert.setMessage("Biztosan be szeretnéd zárni az appot?");
+                exitAlert.setCancelable(true);
+                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog exitAlertDlg = exitAlert.create();
+                exitAlertDlg.show();
             }
         });
     }
