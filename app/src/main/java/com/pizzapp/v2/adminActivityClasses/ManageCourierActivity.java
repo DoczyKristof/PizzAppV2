@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,6 +31,7 @@ public class ManageCourierActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     List<String> cursList;
     Button btn_delCur, btn_modCur;
+    FirebaseAuth fauth;
 
     //---------
     @Override
@@ -73,6 +75,7 @@ public class ManageCourierActivity extends AppCompatActivity {
         btn_modCur = findViewById(R.id.btn_modCur);
         spinner = findViewById(R.id.searchableSpinner);
         firestore = FirebaseFirestore.getInstance();
+        fauth = FirebaseAuth.getInstance();
         CFerenc = firestore.collection("couriers");
         cursList = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
@@ -101,6 +104,20 @@ public class ManageCourierActivity extends AppCompatActivity {
 
     //---------------
     private void setCurInactive(String name) {
-        CFerenc.document(name).update("activity", 0);
+        CFerenc.whereEqualTo("Name", name)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                String uid = (String) doc.get("UID");
+                                CFerenc.document(uid).update("activity", 0);
+                            }
+                        } else {
+                            Toast.makeText(ManageCourierActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

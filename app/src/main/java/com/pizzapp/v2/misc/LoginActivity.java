@@ -52,21 +52,11 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
                             finish();
                         } else {
-                            AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
-                            nvldLgn.setMessage("Hibás bejelentkezési adatok!");
-                            nvldLgn.setCancelable(true);
-                            nvldLgn.setPositiveButton("X", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                            AlertDialog nvldLgnDlg = nvldLgn.create();
-                            nvldLgnDlg.show();
+                            alertLoginError();
                         }
                     } else {
                         //---------
-                        String userName = input_email.getText().toString();
+                        final String userName = input_email.getText().toString();
                         final String pw = input_pw.getText().toString();
                         //---------
                         if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
@@ -80,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot doc : task.getResult()) {
                                                     String email = (String) doc.get("Email");
-                                                    performLogin(email, pw);
-                                                }
+                                                        performLogin(email, pw);
+                                                    }
                                             } else {
                                                 Toast.makeText(LoginActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
                                             }
@@ -89,9 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     });
                         }
-                        /*
-
-                         */
                     }
                 }
             }
@@ -157,4 +144,17 @@ public class LoginActivity extends AppCompatActivity {
         );
     }
     //---------
+    private void alertLoginError(){
+        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
+        nvldLgn.setMessage("Hibás bejelentkezési adatok!");
+        nvldLgn.setCancelable(true);
+        nvldLgn.setPositiveButton("X", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog nvldLgnDlg = nvldLgn.create();
+        nvldLgnDlg.show();
+    }
 }

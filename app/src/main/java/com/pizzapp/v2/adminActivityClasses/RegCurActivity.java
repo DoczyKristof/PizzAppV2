@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pizzapp.v2.R;
@@ -65,6 +66,7 @@ public class RegCurActivity extends AppCompatActivity {
                                         courier.put("UserName", userName);
                                         courier.put("Email", email);
                                         courier.put("Phone", phone);
+                                        courier.put("UID", userId);
                                         courier.put("activity", 1);
                                         dFerenc.set(courier).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
