@@ -10,7 +10,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".curActivityClasses.CurProfActivity"></activity>
+        <activity android:name=".adminActivityClasses.UpdateCurActivity" />
+        <activity android:name=".curActivityClasses.CurProfActivity" />
         <activity android:name=".adminActivityClasses.ManageCourierActivity" />
         <activity android:name=".curActivityClasses.CurMenuActivity" />
         <activity android:name=".adminActivityClasses.RegCurActivity" />
@@ -24,4 +25,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

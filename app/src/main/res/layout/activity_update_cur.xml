@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Futár módosítása"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/modCur_name"
+            android:text="Név" />
+
+        <EditText
+            android:id="@+id/modCur_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
+            android:hint="Pizza Pizza"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/cur_userName"
+            android:text="Felhasználónév" />
+
+        <EditText
+            android:id="@+id/modCur_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
+            android:hint="pizzApp futár"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/modCur_email"
+            android:text="E-mail" />
+
+        <EditText
+            android:id="@+id/modCur_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
+            android:hint="pizzapp@pizzapp.hu"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/modCur_phone"
+            android:text="Telefonszám" />
+
+        <EditText
+            android:id="@+id/modCur_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
+            android:hint="06901234678"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/modCur_pw"
+            android:text="Jelszó" />
+
+        <EditText
+            android:id="@+id/modCur_pw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Jelszó"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:labelFor="@id/modCur_pw2"
+            android:paddingTop="5dp"
+            android:text="Jelszó megerősítése" />
+
+        <EditText
+            android:id="@+id/modCur_pw2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Jelszó megerősítése"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn_modCur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="22dp"
+            android:background="#D4AF37"
+            android:text="módosítás"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</RelativeLayout>

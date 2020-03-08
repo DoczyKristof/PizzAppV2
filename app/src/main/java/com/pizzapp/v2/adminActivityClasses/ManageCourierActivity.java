@@ -1,6 +1,7 @@
 package com.pizzapp.v2.adminActivityClasses;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pizzapp.v2.R;
+import com.pizzapp.v2.segedClassok.Globals;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
@@ -67,6 +69,29 @@ public class ManageCourierActivity extends AppCompatActivity {
                 byeCurDlg.show();
             }
         });
+        //---------------
+        btn_modCur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //---------------
+                CFerenc.whereEqualTo("Name", getSelectedName())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        String uid = (String) doc.get("UID");
+                                        addToGlobal(uid);
+                                        startActivity(new Intent(ManageCourierActivity.this, UpdateCurActivity.class));
+                                        finish();
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
+        //---------------
     }
 
     //---------
@@ -101,7 +126,6 @@ public class ManageCourierActivity extends AppCompatActivity {
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();
     }
-
     //---------------
     private void setCurInactive(String name) {
         CFerenc.whereEqualTo("Name", name)
@@ -120,4 +144,10 @@ public class ManageCourierActivity extends AppCompatActivity {
                     }
                 });
     }
+    //---------------
+    private void addToGlobal(String string){
+        Globals glbl = Globals.getInstance();
+        glbl.setValue(string);
+    }
+    //---------------
 }
