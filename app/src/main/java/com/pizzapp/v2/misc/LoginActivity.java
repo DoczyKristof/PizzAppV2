@@ -3,6 +3,7 @@ package com.pizzapp.v2.misc;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +18,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.pizzapp.v2.curActivityClasses.CurMenuActivity;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pizzapp.v2.R;
 import com.pizzapp.v2.adminActivityClasses.AdminMenuActivity;
+import com.pizzapp.v2.curActivityClasses.CurMenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
     //---------
@@ -27,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText input_email, input_pw;
     private TextView txt_frgtnPw;
     private FirebaseAuth fauth;
+    private FirebaseFirestore firestore;
+    private CollectionReference CFerenc;
 
     //---------
     @Override
@@ -40,44 +47,51 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (vrfInput()) {
-                    if (input_email.getText().toString().toLowerCase().equals("admin")
-                            && input_pw.getText().toString().equals("admin")) {
-                        Intent bye = new Intent(LoginActivity.this, AdminMenuActivity.class);
-                        startActivity(bye);
-                        finish();
-                    } else {
-                        if (input_pw.getText().toString().length() < 6) {
-                            Toast.makeText(LoginActivity.this, "pw több mint 6 char plz", Toast.LENGTH_SHORT).show();
-                            return;
+                    if (input_email.getText().toString().toLowerCase().equals("admin")) {
+                        if (input_pw.getText().toString().equals("admin")) {
+                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                            finish();
                         } else {
-                            //---------
-                            String email = input_email.getText().toString();
-                            String pw = input_pw.getText().toString();
-                            //---------
-                            fauth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(
-                                    new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                startActivity(new Intent(LoginActivity.this, CurMenuActivity.class));
-                                                finish();
-                                            } else {
-                                                AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
-                                                nvldLgn.setMessage("Hiba! " + task.getException());
-                                                nvldLgn.setCancelable(true);
-                                                nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                                AlertDialog nvldLgnDlg = nvldLgn.create();
-                                                nvldLgnDlg.show();
-                                            }
-                                        }
-                                    }
-                            );
+                            AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
+                            nvldLgn.setMessage("Hibás bejelentkezési adatok!");
+                            nvldLgn.setCancelable(true);
+                            nvldLgn.setPositiveButton("X", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog nvldLgnDlg = nvldLgn.create();
+                            nvldLgnDlg.show();
                         }
+                    } else {
+                        //---------
+                        String userName = input_email.getText().toString();
+                        final String pw = input_pw.getText().toString();
+                        //---------
+                        if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
+                            performLogin(userName, pw);
+                        } else {
+                            CFerenc.whereEqualTo("UserName", userName)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                    String email = (String) doc.get("Email");
+                                                    performLogin(email, pw);
+                                                }
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    });
+                        }
+                        /*
+
+                         */
                     }
                 }
             }
@@ -91,6 +105,8 @@ public class LoginActivity extends AppCompatActivity {
         input_pw = findViewById(R.id.input_password);
         txt_frgtnPw = findViewById(R.id.txt_frgtnPw);
         fauth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        CFerenc = firestore.collection("couriers");
     }
 
     //---------
@@ -113,6 +129,32 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
     //---------
+    private void performLogin(String email, String pw) {
+        fauth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(LoginActivity.this, CurMenuActivity.class));
+                            finish();
+                        } else {
+                            AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
+                            nvldLgn.setMessage("Hiba! " + task.getException());
+                            nvldLgn.setCancelable(true);
+                            nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog nvldLgnDlg = nvldLgn.create();
+                            nvldLgnDlg.show();
+                        }
+                    }
+                }
+        );
+    }
     //---------
 }

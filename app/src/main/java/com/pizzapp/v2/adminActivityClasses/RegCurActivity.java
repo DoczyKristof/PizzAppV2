@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class RegCurActivity extends AppCompatActivity {
     //---------
-    private EditText input_regCur_nev, input_regCur_email, input_regCur_phone,
+    private EditText input_regCur_nev, input_regCur_felhNev, input_regCur_email, input_regCur_phone,
             input_regCur_pw, input_regCur_pw2;
     private Button btn_regCur;
     private FirebaseAuth fauth;
@@ -48,6 +48,7 @@ public class RegCurActivity extends AppCompatActivity {
                 if (vrfInput()) {
                     final String email = input_regCur_email.getText().toString().trim();
                     final String pw = input_regCur_pw.getText().toString();
+                    final String userName = input_regCur_felhNev.getText().toString();
                     final String name = input_regCur_nev.getText().toString();
                     final String phone = input_regCur_phone.getText().toString();
                     //---------
@@ -61,8 +62,8 @@ public class RegCurActivity extends AppCompatActivity {
                                         DocumentReference dFerenc = firestore.collection("couriers").document(userId);
                                         Map<String, Object> courier = new HashMap<>();
                                         courier.put("Name", name);
+                                        courier.put("UserName", userName);
                                         courier.put("Email", email);
-                                        courier.put("Pw", pw);
                                         courier.put("Phone", phone);
                                         courier.put("activity", 1);
                                         dFerenc.set(courier).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -107,18 +108,20 @@ public class RegCurActivity extends AppCompatActivity {
                             }
                     );
                     //---------
-
                 } else {
                     Toast.makeText(RegCurActivity.this, "nem annyira sikeres reg", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
         //---------
     }
 
     //---------
     private void inito() {
         input_regCur_nev = findViewById(R.id.cur_name);
+        input_regCur_felhNev = findViewById(R.id.cur_userName);
         input_regCur_email = findViewById(R.id.cur_email);
         input_regCur_phone = findViewById(R.id.cur_phone);
         input_regCur_pw = findViewById(R.id.input_password);
@@ -133,6 +136,7 @@ public class RegCurActivity extends AppCompatActivity {
         if (input_regCur_nev.getText().toString().trim().equals("")
                 || input_regCur_email.getText().toString().trim().equals("")
                 || input_regCur_phone.getText().toString().trim().equals("")
+                || input_regCur_felhNev.getText().toString().trim().equals("")
                 || input_regCur_pw.getText().toString().equals("")
                 || input_regCur_pw2.getText().toString().equals("")) {
             AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);

@@ -17,7 +17,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/bg"
-            android:src="@drawable/addcur"/>
+            android:src="@drawable/addcur" />
 
         <ImageButton
             android:id="@+id/btn_manage_courier"

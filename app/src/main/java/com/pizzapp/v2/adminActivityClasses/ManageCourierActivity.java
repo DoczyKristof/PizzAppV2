@@ -66,6 +66,7 @@ public class ManageCourierActivity extends AppCompatActivity {
             }
         });
     }
+
     //---------
     private void inito() {
         btn_delCur = findViewById(R.id.btn_delCur);
@@ -92,10 +93,12 @@ public class ManageCourierActivity extends AppCompatActivity {
         });
         spinner.setAdapter(adapter);
     }
+
     //---------------
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();
     }
+
     //---------------
     private void setCurInactive(String name) {
         CFerenc.document(name).update("activity", 0);
