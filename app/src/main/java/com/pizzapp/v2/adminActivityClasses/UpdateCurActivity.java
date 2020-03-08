@@ -1,13 +1,13 @@
 package com.pizzapp.v2.adminActivityClasses;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +26,7 @@ public class UpdateCurActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private CollectionReference CFerenc;
     private String UID;
+
     //---------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class UpdateCurActivity extends AppCompatActivity {
         );
 
     }
+
     //---------------
     private void inito() {
         modCur_name = findViewById(R.id.modCur_name);
@@ -62,8 +64,9 @@ public class UpdateCurActivity extends AppCompatActivity {
         Globals glbl = Globals.getInstance();
         UID = glbl.getValue();
     }
+
     //---------------
-    private void loadData(){
+    private void loadData() {
         //---------------
         Toast.makeText(this, UID, Toast.LENGTH_SHORT).show();
         //---------------
@@ -86,8 +89,9 @@ public class UpdateCurActivity extends AppCompatActivity {
                 });
         //---------------
     }
+
     //---------------
-    private void updateData(){
+    private void updateData() {
         String updated_name = modCur_name.getText().toString();
         String updated_userName = modCur_userName.getText().toString();
         String updated_email = modCur_email.getText().toString();

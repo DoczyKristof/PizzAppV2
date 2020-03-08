@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot doc : task.getResult()) {
                                                     String email = (String) doc.get("Email");
-                                                        performLogin(email, pw);
-                                                    }
+                                                    performLogin(email, pw);
+                                                }
                                             } else {
                                                 Toast.makeText(LoginActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
                                             }
@@ -143,8 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
     }
+
     //---------
-    private void alertLoginError(){
+    private void alertLoginError() {
         AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
         nvldLgn.setMessage("Hibás bejelentkezési adatok!");
         nvldLgn.setCancelable(true);

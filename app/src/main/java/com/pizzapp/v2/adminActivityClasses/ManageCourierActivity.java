@@ -126,6 +126,7 @@ public class ManageCourierActivity extends AppCompatActivity {
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();
     }
+
     //---------------
     private void setCurInactive(String name) {
         CFerenc.whereEqualTo("Name", name)
@@ -144,8 +145,9 @@ public class ManageCourierActivity extends AppCompatActivity {
                     }
                 });
     }
+
     //---------------
-    private void addToGlobal(String string){
+    private void addToGlobal(String string) {
         Globals glbl = Globals.getInstance();
         glbl.setValue(string);
     }
