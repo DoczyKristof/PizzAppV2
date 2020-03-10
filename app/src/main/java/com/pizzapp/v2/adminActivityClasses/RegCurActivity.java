@@ -55,7 +55,7 @@ public class RegCurActivity extends AppCompatActivity {
                     fauth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(
                             new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                public void onComplete(@NonNull final Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         //---------
                                         userId = fauth.getCurrentUser().getUid();
@@ -77,45 +77,23 @@ public class RegCurActivity extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                                                     @Override
                                                                     public void onFailure(@NonNull Exception e) {
-                                                                        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);
-                                                                        nvldLgn.setMessage(e.toString());
-                                                                        nvldLgn.setCancelable(true);
-                                                                        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
-                                                                            @Override
-                                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                                dialog.cancel();
-                                                                            }
-                                                                        });
-                                                                        AlertDialog nvldLgnDlg = nvldLgn.create();
-                                                                        nvldLgnDlg.show();
+                                                                        errorAlert(task.getException().toString());
                                                                     }
                                                                 }
                                         );
 
                                     } else {
-                                        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);
-                                        nvldLgn.setMessage("Hiba! " + task.getException());
-                                        nvldLgn.setCancelable(true);
-                                        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        AlertDialog nvldLgnDlg = nvldLgn.create();
-                                        nvldLgnDlg.show();
+                                        errorAlert(task.getException().toString());
                                     }
                                 }
                             }
                     );
                     //---------
                 } else {
-                    Toast.makeText(RegCurActivity.this, "nem annyira sikeres reg", Toast.LENGTH_SHORT).show();
+                   errorAlert("Sikertelen regisztráció");
                 }
             }
         });
-
-
         //---------
     }
 
@@ -184,4 +162,17 @@ public class RegCurActivity extends AppCompatActivity {
         }
     }
     //---------
+    private void errorAlert(String msg){
+        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);
+        nvldLgn.setMessage(msg);
+        nvldLgn.setCancelable(true);
+        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog nvldLgnDlg = nvldLgn.create();
+        nvldLgnDlg.show();
+    }
 }

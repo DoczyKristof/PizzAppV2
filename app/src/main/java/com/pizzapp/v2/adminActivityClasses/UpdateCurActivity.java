@@ -1,5 +1,6 @@
 package com.pizzapp.v2.adminActivityClasses;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,9 +43,10 @@ public class UpdateCurActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //validate
-                        updateData();
-                        finish();
+                        if (vrfInput()){
+                            updateData();
+                            finish();
+                        }
                     }
                 }
         );
@@ -68,7 +71,7 @@ public class UpdateCurActivity extends AppCompatActivity {
     //---------------
     private void loadData() {
         //---------------
-        Toast.makeText(this, UID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, UID, Toast.LENGTH_SHORT).show();
         //---------------
         CFerenc.whereEqualTo("UID", UID)
                 .get()
@@ -83,7 +86,7 @@ public class UpdateCurActivity extends AppCompatActivity {
                                 modCur_phone.setText(doc.get("Phone").toString());
                             }
                         } else {
-                            Toast.makeText(UpdateCurActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
+                            errorAlert(task.getException().toString());
                         }
                     }
                 });
@@ -103,5 +106,40 @@ public class UpdateCurActivity extends AppCompatActivity {
                 "UserName", updated_userName
         );
         //---------------
+    }
+    //---------------
+    private void errorAlert(String e){
+        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(UpdateCurActivity.this);
+        nvldLgn.setMessage(e);
+        nvldLgn.setCancelable(true);
+        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog nvldLgnDlg = nvldLgn.create();
+        nvldLgnDlg.show();
+    }
+    //---------------
+    private boolean vrfInput() {
+        if (modCur_name.getText().toString().trim().equals("")
+                || modCur_email.getText().toString().trim().equals("")
+                || modCur_phone.getText().toString().trim().equals("")
+                || modCur_userName.getText().toString().trim().equals("")) {
+            AlertDialog.Builder nvldLgn = new AlertDialog.Builder(UpdateCurActivity.this);
+            nvldLgn.setMessage("A mezők kitöltése kötelező!");
+            nvldLgn.setCancelable(true);
+            nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog nvldLgnDlg = nvldLgn.create();
+            nvldLgnDlg.show();
+            return false;
+        }
+        return true;
     }
 }

@@ -140,16 +140,28 @@ public class ManageCourierActivity extends AppCompatActivity {
                                 CFerenc.document(uid).update("activity", 0);
                             }
                         } else {
-                            Toast.makeText(ManageCourierActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
+                            errorAlert(task.getException().toString());
                         }
                     }
                 });
     }
-
     //---------------
     private void addToGlobal(String string) {
         Globals glbl = Globals.getInstance();
         glbl.setValue(string);
     }
     //---------------
+    private void errorAlert(String e){
+        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(ManageCourierActivity.this);
+        nvldLgn.setMessage(e);
+        nvldLgn.setCancelable(true);
+        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog nvldLgnDlg = nvldLgn.create();
+        nvldLgnDlg.show();
+    }
 }

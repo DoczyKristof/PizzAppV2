@@ -27,8 +27,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         btn_regCur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent bye = new Intent(AdminMenuActivity.this, RegCurActivity.class);
-                startActivity(bye);
+                startActivity(new Intent(AdminMenuActivity.this, RegCurActivity.class));
             }
         });
         //---------
