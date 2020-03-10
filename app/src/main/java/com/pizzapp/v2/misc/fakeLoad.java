@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.pizzapp.v2.R;
 
 import maes.tech.intentanim.CustomIntent;
@@ -15,6 +17,7 @@ import maes.tech.intentanim.CustomIntent;
 public class fakeLoad extends AppCompatActivity {
     //---------
     private ImageView logo;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +61,12 @@ public class fakeLoad extends AppCompatActivity {
     //---------
     private void inito() {
         logo = findViewById(R.id.logo_main);
+        firestore = FirebaseFirestore.getInstance();
+        randoPing();
+    }
+    //---------------
+    private void randoPing(){
+        CollectionReference CFerenc = firestore.collection("couriers");
+        CFerenc.get();
     }
 }

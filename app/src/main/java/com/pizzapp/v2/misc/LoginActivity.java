@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     performLogin(email, pw);
                                                 }
                                             } else {
-                                                Toast.makeText(LoginActivity.this, "Hiba!", Toast.LENGTH_SHORT).show();
+                                                errorAlert(task.getException().toString());
                                             }
 
                                         }
@@ -150,6 +150,19 @@ public class LoginActivity extends AppCompatActivity {
         nvldLgn.setMessage("Hibás bejelentkezési adatok!");
         nvldLgn.setCancelable(true);
         nvldLgn.setPositiveButton("X", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog nvldLgnDlg = nvldLgn.create();
+        nvldLgnDlg.show();
+    }
+    private void errorAlert(String msg){
+        AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
+        nvldLgn.setMessage(msg);
+        nvldLgn.setCancelable(true);
+        nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
