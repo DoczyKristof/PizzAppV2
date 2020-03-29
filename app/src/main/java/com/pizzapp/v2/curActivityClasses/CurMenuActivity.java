@@ -50,7 +50,7 @@ public class CurMenuActivity extends AppCompatActivity {
                 AlertDialog.Builder exitAlert = new AlertDialog.Builder(CurMenuActivity.this);
                 exitAlert.setMessage("Biztosan ki szeretnél jelentkezni?");
                 exitAlert.setCancelable(true);
-                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                exitAlert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseAuth.getInstance().signOut();
@@ -58,7 +58,7 @@ public class CurMenuActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                exitAlert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -82,14 +82,14 @@ public class CurMenuActivity extends AppCompatActivity {
                 AlertDialog.Builder exitAlert = new AlertDialog.Builder(CurMenuActivity.this);
                 exitAlert.setMessage("Biztosan be szeretnéd zárni az appot?");
                 exitAlert.setCancelable(true);
-                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                exitAlert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                         System.exit(0);
                     }
                 });
-                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                exitAlert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
