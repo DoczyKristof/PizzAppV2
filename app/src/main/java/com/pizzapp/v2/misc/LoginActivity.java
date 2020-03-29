@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,23 +67,41 @@ public class LoginActivity extends AppCompatActivity {
                         final String pw = input_pw.getText().toString();
                         //---------
                         if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
-                            performLogin(userName, pw);
-                            pb.setVisibility(View.GONE);
+                            CFerenc.whereEqualTo("Email", userName)
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                                            boolean act = (boolean) doc.get("activity");
+                                            performLogin(userName, pw, act);
+                                            pb.setVisibility(View.GONE);
+                                        }
+                                    }else{
+                                        pb.setVisibility(View.GONE);
+                                        errorAlert("Sikertelen bejelntkezés!");
+                                    }
+                                }
+                            });
                         } else {
                             CFerenc.whereEqualTo("UserName", userName)
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            pb.setVisibility(View.INVISIBLE);
+
                                             if (task.isSuccessful()) {
-                                                if (task.getResult() != null) {
+                                                pb.setVisibility(View.INVISIBLE);
+                                                boolean b = task.getResult().isEmpty();
+                                                if (!b) {
                                                     for (QueryDocumentSnapshot doc : task.getResult()) {
-                                                        String email = (String) doc.get("Email");
-                                                        performLogin(email, pw);
-                                                        pb.setVisibility(View.GONE);
-                                                    }
-                                                } else {
+                                                            String email = (String) doc.get("Email");
+                                                            boolean act = (boolean) doc.get("activity");
+                                                            performLogin(email, pw, act);
+                                                            pb.setVisibility(View.GONE);
+                                                        }
+                                                    }else {
+                                                    pb.setVisibility(View.GONE);
                                                     errorAlert("Hibás bejelentkezési adatok!");
                                                 }
                                             } else {
@@ -147,38 +164,37 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //---------
-    private void performLogin(String email, String pw) {
-        pb.setVisibility(View.VISIBLE);
-        fauth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            pb.setVisibility(View.GONE);
-                            startActivity(new Intent(LoginActivity.this, CurMenuActivity.class));
-                            finish();
-                        } else {
-                            pb.setVisibility(View.GONE);
-                            AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
-                            nvldLgn.setMessage("Hiba! " + task.getException());
-                            nvldLgn.setCancelable(true);
-                            nvldLgn.setPositiveButton("K", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                            AlertDialog nvldLgnDlg = nvldLgn.create();
-                            nvldLgnDlg.show();
+    private void performLogin(String email, String pw, boolean activity) {
+        if (activity){
+            pb.setVisibility(View.VISIBLE);
+            fauth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(
+                    new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                pb.setVisibility(View.GONE);
+                                startActivity(new Intent(LoginActivity.this, CurMenuActivity.class));
+                                finish();
+                            } else {
+                                pb.setVisibility(View.GONE);
+                                AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
+                                nvldLgn.setMessage("Hibás bejelentkezési adatok!");
+                                nvldLgn.setCancelable(true);
+                                nvldLgn.setPositiveButton("X", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog nvldLgnDlg = nvldLgn.create();
+                                nvldLgnDlg.show();
+                            }
                         }
                     }
-                }
-        ).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                errorAlert("Hibás bejelentkezési adatok!");
-            }
-        });
+            );
+        }else {
+          errorAlert("Hibás bejelentkezési adatok!");
+        }
     }
 
     //---------
@@ -209,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog nvldLgnDlg = nvldLgn.create();
         nvldLgnDlg.show();
     }
-}
+  }
 //-----------------------
 //    || __   ||
 //    ||=\_`\=||

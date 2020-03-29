@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -88,11 +89,12 @@ public class RegCurActivity extends AppCompatActivity {
                                         courier.put("Email", email);
                                         courier.put("Phone", phone);
                                         courier.put("UID", userId);
-                                        courier.put("activity", 1);
+                                        courier.put("activity", true);
                                         dFerenc.set(courier).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 //---------
+                                                Toast.makeText(RegCurActivity.this, "Sikeres regisztráció.", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(RegCurActivity.this, AdminMenuActivity.class));
                                                 pb.setVisibility(View.GONE);
                                                 finish();
@@ -100,6 +102,7 @@ public class RegCurActivity extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                                                     @Override
                                                                     public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(RegCurActivity.this, "Sikertelen regisztráció.", Toast.LENGTH_SHORT).show();
                                                                         pb.setVisibility(View.GONE);
                                                                         errorAlert(task.getException().toString());
                                                                     }
@@ -114,9 +117,6 @@ public class RegCurActivity extends AppCompatActivity {
                             }
                     );
                     //---------
-                } else {
-                    pb.setVisibility(View.GONE);
-                    errorAlert("Sikertelen regisztráció");
                 }
             }
         });
@@ -156,6 +156,7 @@ public class RegCurActivity extends AppCompatActivity {
             });
             AlertDialog nvldLgnDlg = nvldLgn.create();
             nvldLgnDlg.show();
+            pb.setVisibility(View.GONE);
             return false;
         } else if (input_regCur_pw.getText().toString().length() < 6) {
             AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);
@@ -169,6 +170,7 @@ public class RegCurActivity extends AppCompatActivity {
             });
             AlertDialog nvldLgnDlg = nvldLgn.create();
             nvldLgnDlg.show();
+            pb.setVisibility(View.GONE);
             return false;
         } else if (!input_regCur_pw.getText().toString().equals(
                 input_regCur_pw2.getText().toString())) {
@@ -183,6 +185,7 @@ public class RegCurActivity extends AppCompatActivity {
             });
             AlertDialog nvldLgnDlg = nvldLgn.create();
             nvldLgnDlg.show();
+            pb.setVisibility(View.GONE);
             return false;
         } else {
             return true;

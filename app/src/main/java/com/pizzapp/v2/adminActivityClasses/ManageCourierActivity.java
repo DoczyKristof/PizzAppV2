@@ -76,7 +76,7 @@ public class ManageCourierActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         setCurInactive(getSelectedName());
                         Toast.makeText(ManageCourierActivity.this,
-                                "A " + getSelectedName() + " sikeres törlése."
+                                 getSelectedName() + " sikeres törlése."
                                 , Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -130,7 +130,7 @@ public class ManageCourierActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, cursList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //---------------
-        CFerenc.whereEqualTo("activity", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        CFerenc.whereEqualTo("activity", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -159,7 +159,7 @@ public class ManageCourierActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 String uid = (String) doc.get("UID");
-                                CFerenc.document(uid).update("activity", 0);
+                                CFerenc.document(uid).update("activity", false);
                             }
                         } else {
                             errorAlert(task.getException().toString());
