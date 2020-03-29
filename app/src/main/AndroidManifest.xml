@@ -10,6 +10,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".misc.orderplz"></activity>
+        <activity android:name=".curActivityClasses.CurDeliveriesActivity" />
         <activity android:name=".adminActivityClasses.UpdateCurActivity" />
         <activity android:name=".curActivityClasses.CurProfActivity" />
         <activity android:name=".adminActivityClasses.ManageCourierActivity" />

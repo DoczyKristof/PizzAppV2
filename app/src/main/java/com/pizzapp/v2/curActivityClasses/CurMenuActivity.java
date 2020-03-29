@@ -4,19 +4,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.pizzapp.v2.R;
 import com.pizzapp.v2.misc.fakeLoad;
 
 public class CurMenuActivity extends AppCompatActivity {
     //---------
-    private ImageButton btn_curProf, btn_logout, btn_exitApp, btn_manageDeliveries;
+    private TextView txt_profname;
+    private CardView btn_curProf, btn_logout, btn_exitApp, btn_manageDeliveries;
     private FirebaseAuth fauth;
+    private FirebaseFirestore firestore;
+    private String userId;
 
     //---------
     @Override
@@ -25,7 +35,15 @@ public class CurMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cur_menu);
         //---------
         inito();
-        //---------
+        //---------------
+        final DocumentReference dFerenc = firestore.collection("couriers").document(userId);
+        dFerenc.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                txt_profname.setText(documentSnapshot.getString("UserName"));
+            }
+        });
+        //---------------
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,15 +100,26 @@ public class CurMenuActivity extends AppCompatActivity {
             }
         });
         //---------------
+        btn_manageDeliveries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CurMenuActivity.this, CurDeliveriesActivity.class));
+            }
+        });
     }
 
 
     //---------
     private void inito() {
+        txt_profname = findViewById(R.id.txt_menuName);
         btn_exitApp = findViewById(R.id.btn_exitCur);
         btn_logout = findViewById(R.id.btn_logoutCur);
         btn_manageDeliveries = findViewById(R.id.btn_mngDel);
         btn_curProf = findViewById(R.id.btn_curprof);
+        fauth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        userId = fauth.getCurrentUser().getUid();
+
     }
     //---------
 }

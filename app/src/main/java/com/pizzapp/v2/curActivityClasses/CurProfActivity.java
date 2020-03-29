@@ -16,7 +16,7 @@ import com.pizzapp.v2.R;
 
 public class CurProfActivity extends AppCompatActivity {
     //---------
-    private TextView txtVw_name, txtVw_email, txtVw_phone;
+    private TextView txtVw_name, txtVw_email, txtVw_phone, txtVw_nickName;
     private String userId;
     private FirebaseAuth fauth;
     private FirebaseFirestore firestore;
@@ -34,6 +34,7 @@ public class CurProfActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 txtVw_name.setText(documentSnapshot.getString("Name"));
+                txtVw_nickName.setText(documentSnapshot.getString("UserName"));
                 txtVw_email.setText(documentSnapshot.getString("Email"));
                 txtVw_phone.setText(documentSnapshot.getString("Phone"));
             }
@@ -43,6 +44,7 @@ public class CurProfActivity extends AppCompatActivity {
 
     //---------
     private void inito() {
+        txtVw_nickName = findViewById(R.id.cur_prof_nickName);
         txtVw_name = findViewById(R.id.cur_prof_name);
         txtVw_email = findViewById(R.id.cur_prof_email);
         txtVw_phone = findViewById(R.id.cur_prof_phone);

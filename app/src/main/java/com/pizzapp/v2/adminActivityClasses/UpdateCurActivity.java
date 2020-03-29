@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,7 +45,7 @@ public class UpdateCurActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (vrfInput()){
+                        if (vrfInput()) {
                             updateData();
                             finish();
                         }
@@ -84,6 +86,8 @@ public class UpdateCurActivity extends AppCompatActivity {
                                 modCur_userName.setText(doc.get("UserName").toString());
                                 modCur_email.setText(doc.get("Email").toString());
                                 modCur_phone.setText(doc.get("Phone").toString());
+                                btn_modCur.setEnabled(true);
+                                btn_modCur.setAlpha(1);
                             }
                         } else {
                             errorAlert(task.getException().toString());
@@ -95,6 +99,7 @@ public class UpdateCurActivity extends AppCompatActivity {
 
     //---------------
     private void updateData() {
+
         String updated_name = modCur_name.getText().toString();
         String updated_userName = modCur_userName.getText().toString();
         String updated_email = modCur_email.getText().toString();
@@ -104,11 +109,22 @@ public class UpdateCurActivity extends AppCompatActivity {
                 "Email", updated_email,
                 "Phone", updated_phone,
                 "UserName", updated_userName
-        );
+        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(UpdateCurActivity.this, "Sikeres módosítás.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UpdateCurActivity.this, "Sikertelen módosítás.", Toast.LENGTH_SHORT).show();
+            }
+        });
         //---------------
     }
+
     //---------------
-    private void errorAlert(String e){
+    private void errorAlert(String e) {
         AlertDialog.Builder nvldLgn = new AlertDialog.Builder(UpdateCurActivity.this);
         nvldLgn.setMessage(e);
         nvldLgn.setCancelable(true);
@@ -121,6 +137,7 @@ public class UpdateCurActivity extends AppCompatActivity {
         AlertDialog nvldLgnDlg = nvldLgn.create();
         nvldLgnDlg.show();
     }
+
     //---------------
     private boolean vrfInput() {
         if (modCur_name.getText().toString().trim().equals("")

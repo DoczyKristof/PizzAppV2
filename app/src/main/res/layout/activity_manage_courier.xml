@@ -13,15 +13,25 @@
         android:orientation="vertical"
         android:padding="5dp">
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
             android:text="Futárok kezelése"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textSize="20dp"
+            android:textColor="#fff"
+            android:textSize="20sp"
             android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/pb_manage"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,16 +57,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Törlés" />
+                    android:alpha="0.5"
+                    android:enabled="false"
+                    android:text="Törlés"
+                    android:theme="@style/btn_bad" />
 
                 <Button
                     android:id="@+id/btn_modCur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="Módosítás" />
+                    android:alpha="0.5"
+                    android:enabled="false"
+                    android:text="Módosítás"
+                    android:theme="@style/btn_good" />
 
             </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

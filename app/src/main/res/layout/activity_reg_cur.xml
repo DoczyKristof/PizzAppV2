@@ -15,6 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-light"
             android:text="Futár regisztrálása"
             android:textAlignment="center"
@@ -127,6 +128,8 @@
             android:text="Jelszó megerősítése" />
 
         <EditText
+            android:alpha="0.5"
+            android:enabled="false"
             android:id="@+id/input_password2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,15 +139,25 @@
             android:singleLine="true" />
 
         <Button
+            android:alpha="0.5"
+            android:enabled="false"
+            android:theme="@style/btn_gold"
             android:id="@+id/btn_regCur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="22dp"
-            android:background="#D4AF37"
             android:text="Regisztrálás"
             android:textAllCaps="false"
-            android:textColor="#000"
             android:textSize="18sp" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_reg"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>

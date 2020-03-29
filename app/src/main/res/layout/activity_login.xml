@@ -32,7 +32,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:labelFor="@id/input_email"
-                    android:text="E-mail" />
+                    android:text="E-mail"
+                    android:textColor="#FFF" />
 
                 <EditText
                     android:id="@+id/input_email"
@@ -49,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:labelFor="@id/input_password"
-                    android:text="Jelszó" />
+                    android:text="Jelszó"
+                    android:textColor="#FFF" />
 
                 <EditText
                     android:id="@+id/input_password"
@@ -91,5 +93,13 @@
             android:background="@mipmap/ic_logo_round" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_login"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>

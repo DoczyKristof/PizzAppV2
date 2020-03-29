@@ -18,8 +18,10 @@
             android:text="Futár módosítása"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal" />
 
     </RelativeLayout>
 
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/modCur_name"
-            android:text="Név" />
+            android:text="Név"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_name"
@@ -53,7 +56,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/cur_userName"
-            android:text="Felhasználónév" />
+            android:text="Felhasználónév"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_userName"
@@ -70,7 +74,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/modCur_email"
-            android:text="E-mail" />
+            android:text="E-mail"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_email"
@@ -88,7 +93,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/modCur_phone"
-            android:text="Telefonszám" />
+            android:text="Telefonszám"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_phone"
@@ -106,7 +112,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/modCur_pw"
-            android:text="Jelszó" />
+            android:text="Jelszó"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_pw"
@@ -123,7 +130,8 @@
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/modCur_pw2"
             android:paddingTop="5dp"
-            android:text="Jelszó megerősítése" />
+            android:text="Jelszó megerősítése"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/modCur_pw2"
@@ -139,11 +147,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="22dp"
-            android:background="#D4AF37"
+            android:alpha="0.5"
+            android:enabled="false"
             android:text="módosítás"
             android:textAllCaps="false"
-            android:textColor="#000"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:theme="@style/btn_gold"
+            android:visibility="visible" />
 
     </LinearLayout>
 </RelativeLayout>

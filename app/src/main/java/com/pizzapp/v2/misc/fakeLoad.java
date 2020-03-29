@@ -64,8 +64,9 @@ public class fakeLoad extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         randoPing();
     }
+
     //---------------
-    private void randoPing(){
+    private void randoPing() {
         CollectionReference CFerenc = firestore.collection("couriers");
         CFerenc.get();
     }

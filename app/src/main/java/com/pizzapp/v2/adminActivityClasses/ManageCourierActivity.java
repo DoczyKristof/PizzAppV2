@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class ManageCourierActivity extends AppCompatActivity {
     //---------
+    ProgressBar pb;
     SearchableSpinner spinner;
     CollectionReference CFerenc;
     FirebaseFirestore firestore;
@@ -42,6 +45,25 @@ public class ManageCourierActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_courier);
         //---------
         inito();
+        pb.setVisibility(View.VISIBLE);
+        //---------------
+        if (spinner.getCount() > 0) {
+            pb.setVisibility(View.GONE);
+        }
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                btn_delCur.setAlpha(1);
+                btn_delCur.setEnabled(true);
+                btn_modCur.setAlpha(1);
+                btn_modCur.setEnabled(true);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         //---------------
         btn_delCur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,17 +71,17 @@ public class ManageCourierActivity extends AppCompatActivity {
                 AlertDialog.Builder byeCur = new AlertDialog.Builder(ManageCourierActivity.this);
                 byeCur.setMessage("Biztosan törölni szeretnéd ezt a futárt?");
                 byeCur.setCancelable(true);
-                byeCur.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                byeCur.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         setCurInactive(getSelectedName());
                         Toast.makeText(ManageCourierActivity.this,
-                                "A " + getSelectedName() + " nevű futár byebye"
+                                "A " + getSelectedName() + " sikeres törlése."
                                 , Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
-                byeCur.setNegativeButton("no soz", new DialogInterface.OnClickListener() {
+                byeCur.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -96,6 +118,7 @@ public class ManageCourierActivity extends AppCompatActivity {
 
     //---------
     private void inito() {
+        pb = findViewById(R.id.pb_manage);
         btn_delCur = findViewById(R.id.btn_delCur);
         btn_modCur = findViewById(R.id.btn_modCur);
         spinner = findViewById(R.id.searchableSpinner);
@@ -121,7 +144,6 @@ public class ManageCourierActivity extends AppCompatActivity {
         });
         spinner.setAdapter(adapter);
     }
-
     //---------------
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();
@@ -145,13 +167,15 @@ public class ManageCourierActivity extends AppCompatActivity {
                     }
                 });
     }
+
     //---------------
     private void addToGlobal(String string) {
         Globals glbl = Globals.getInstance();
         glbl.setValue(string);
     }
+
     //---------------
-    private void errorAlert(String e){
+    private void errorAlert(String e) {
         AlertDialog.Builder nvldLgn = new AlertDialog.Builder(ManageCourierActivity.this);
         nvldLgn.setMessage(e);
         nvldLgn.setCancelable(true);

@@ -4,17 +4,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.pizzapp.v2.R;
 import com.pizzapp.v2.misc.fakeLoad;
 
 public class AdminMenuActivity extends AppCompatActivity {
     //---------
-    private ImageButton btn_regCur, btn_logout, btn_manageCur, btn_exit;
+    private CardView btn_regCur, btn_logout, btn_manageCur, btn_exit;
 
     //---------
     @Override
@@ -37,14 +37,14 @@ public class AdminMenuActivity extends AppCompatActivity {
                 AlertDialog.Builder exitAlert = new AlertDialog.Builder(AdminMenuActivity.this);
                 exitAlert.setMessage("Biztosan ki szeretnél lépni?");
                 exitAlert.setCancelable(true);
-                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                exitAlert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(AdminMenuActivity.this, fakeLoad.class));
                         finish();
                     }
                 });
-                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                exitAlert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -68,14 +68,14 @@ public class AdminMenuActivity extends AppCompatActivity {
                 AlertDialog.Builder exitAlert = new AlertDialog.Builder(AdminMenuActivity.this);
                 exitAlert.setMessage("Biztosan be szeretnéd zárni az appot?");
                 exitAlert.setCancelable(true);
-                exitAlert.setPositiveButton("aha", new DialogInterface.OnClickListener() {
+                exitAlert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                         System.exit(0);
                     }
                 });
-                exitAlert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                exitAlert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

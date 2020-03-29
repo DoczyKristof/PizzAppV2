@@ -3,10 +3,12 @@ package com.pizzapp.v2.adminActivityClasses;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +29,7 @@ import java.util.Map;
 
 public class RegCurActivity extends AppCompatActivity {
     //---------
+    private ProgressBar pb;
     private EditText input_regCur_nev, input_regCur_felhNev, input_regCur_email, input_regCur_phone,
             input_regCur_pw, input_regCur_pw2;
     private Button btn_regCur;
@@ -41,10 +44,29 @@ public class RegCurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reg_cur);
         //---------
         inito();
+
+        input_regCur_pw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                input_regCur_pw2.setAlpha(1);
+                input_regCur_pw2.setEnabled(true);
+                btn_regCur.setEnabled(true);
+                btn_regCur.setAlpha(1);
+            }
+        });
         //---------
         btn_regCur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pb.setVisibility(View.VISIBLE);
                 if (vrfInput()) {
                     final String email = input_regCur_email.getText().toString().trim();
                     final String pw = input_regCur_pw.getText().toString();
@@ -72,17 +94,20 @@ public class RegCurActivity extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 //---------
                                                 startActivity(new Intent(RegCurActivity.this, AdminMenuActivity.class));
+                                                pb.setVisibility(View.GONE);
                                                 finish();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                                                     @Override
                                                                     public void onFailure(@NonNull Exception e) {
+                                                                        pb.setVisibility(View.GONE);
                                                                         errorAlert(task.getException().toString());
                                                                     }
                                                                 }
                                         );
 
                                     } else {
+                                        pb.setVisibility(View.GONE);
                                         errorAlert(task.getException().toString());
                                     }
                                 }
@@ -90,7 +115,8 @@ public class RegCurActivity extends AppCompatActivity {
                     );
                     //---------
                 } else {
-                   errorAlert("Sikertelen regisztráció");
+                    pb.setVisibility(View.GONE);
+                    errorAlert("Sikertelen regisztráció");
                 }
             }
         });
@@ -99,6 +125,7 @@ public class RegCurActivity extends AppCompatActivity {
 
     //---------
     private void inito() {
+        pb = findViewById(R.id.pb_reg);
         input_regCur_nev = findViewById(R.id.cur_name);
         input_regCur_felhNev = findViewById(R.id.cur_userName);
         input_regCur_email = findViewById(R.id.cur_email);
@@ -161,8 +188,9 @@ public class RegCurActivity extends AppCompatActivity {
             return true;
         }
     }
+
     //---------
-    private void errorAlert(String msg){
+    private void errorAlert(String msg) {
         AlertDialog.Builder nvldLgn = new AlertDialog.Builder(RegCurActivity.this);
         nvldLgn.setMessage(msg);
         nvldLgn.setCancelable(true);
