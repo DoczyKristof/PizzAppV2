@@ -76,7 +76,7 @@ public class ManageCourierActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         setCurInactive(getSelectedName());
                         Toast.makeText(ManageCourierActivity.this,
-                                 getSelectedName() + " sikeres törlése."
+                                getSelectedName() + " sikeres törlése."
                                 , Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -144,6 +144,7 @@ public class ManageCourierActivity extends AppCompatActivity {
         });
         spinner.setAdapter(adapter);
     }
+
     //---------------
     private String getSelectedName() {
         return spinner.getSelectedItem().toString();

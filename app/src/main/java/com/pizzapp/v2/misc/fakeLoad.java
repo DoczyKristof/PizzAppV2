@@ -12,6 +12,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pizzapp.v2.R;
 
+
 import maes.tech.intentanim.CustomIntent;
 
 public class fakeLoad extends AppCompatActivity {
@@ -69,6 +70,7 @@ public class fakeLoad extends AppCompatActivity {
     private void randoPing() {
         CollectionReference CFerenc = firestore.collection("couriers");
         CFerenc.get();
+
     }
 }
 //-----------------------

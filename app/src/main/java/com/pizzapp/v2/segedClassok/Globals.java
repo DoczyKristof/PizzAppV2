@@ -2,7 +2,7 @@ package com.pizzapp.v2.segedClassok;
 
 public class Globals {
     private static Globals instance = new Globals();
-    private String notification_index;
+    private String string;
 
     private Globals() {
     }
@@ -16,10 +16,10 @@ public class Globals {
     }
 
     public String getValue() {
-        return notification_index;
+        return string;
     }
 
-    public void setValue(String notification_index) {
-        this.notification_index = notification_index;
+    public void setValue(String s) {
+        this.string = s;
     }
 }

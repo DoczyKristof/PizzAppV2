@@ -12,4 +12,13 @@
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/txtVw_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Nincsenek munkáid."
+        android:textSize="28sp"
+        android:visibility="gone" />
 </RelativeLayout>

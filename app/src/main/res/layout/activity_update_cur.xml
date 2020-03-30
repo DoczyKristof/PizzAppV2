@@ -15,13 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
             android:text="Futár módosítása"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="#FFF"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

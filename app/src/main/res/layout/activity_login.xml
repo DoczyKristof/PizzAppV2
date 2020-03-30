@@ -73,13 +73,6 @@
                     android:textColor="#000"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_frgtnPw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Elfelejtett jelszó?"
-                    android:textAlignment="center" />
             </LinearLayout>
 
         </RelativeLayout>

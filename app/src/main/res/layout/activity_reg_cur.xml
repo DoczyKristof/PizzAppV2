@@ -35,12 +35,12 @@
 
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/cur_name"
-            android:text="Név" />
+            android:text="Név"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/cur_name"
@@ -53,12 +53,12 @@
             android:singleLine="true" />
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/cur_userName"
-            android:text="Felhasználónév" />
+            android:text="Felhasználónév"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/cur_userName"
@@ -71,12 +71,12 @@
             android:singleLine="true" />
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/cur_email"
-            android:text="E-mail" />
+            android:text="E-mail"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/cur_email"
@@ -90,12 +90,12 @@
 
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/cur_phone"
-            android:text="Telefonszám" />
+            android:text="Telefonszám"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/cur_phone"
@@ -109,12 +109,12 @@
             android:singleLine="true" />
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/input_password"
-            android:text="Jelszó" />
+            android:text="Jelszó"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/input_password"
@@ -126,36 +126,36 @@
             android:singleLine="true" />
 
         <TextView
-            android:textColor="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:labelFor="@id/input_password2"
             android:paddingTop="5dp"
-            android:text="Jelszó megerősítése" />
+            android:text="Jelszó megerősítése"
+            android:textColor="#FFF" />
 
         <EditText
-            android:alpha="0.5"
-            android:enabled="false"
             android:id="@+id/input_password2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0.5"
             android:drawablePadding="10dp"
+            android:enabled="false"
             android:hint="Jelszó megerősítése"
             android:inputType="textPassword"
             android:singleLine="true" />
 
         <Button
-            android:alpha="0.5"
-            android:enabled="false"
-            android:theme="@style/btn_gold"
             android:id="@+id/btn_regCur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="22dp"
+            android:alpha="0.5"
+            android:enabled="false"
             android:text="Regisztrálás"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:theme="@style/btn_gold" />
 
     </LinearLayout>
 

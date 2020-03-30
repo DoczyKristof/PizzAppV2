@@ -1,7 +1,9 @@
 package com.pizzapp.v2.misc;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -9,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,12 +28,12 @@ import com.pizzapp.v2.R;
 import com.pizzapp.v2.adminActivityClasses.AdminMenuActivity;
 import com.pizzapp.v2.curActivityClasses.CurMenuActivity;
 
+
 public class LoginActivity extends AppCompatActivity {
     //---------
     private ImageButton img_logo;
     private Button btn_login;
     private EditText input_email, input_pw;
-    private TextView txt_frgtnPw;
     private FirebaseAuth fauth;
     private FirebaseFirestore firestore;
     private CollectionReference CFerenc;
@@ -46,70 +47,92 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //---------------
         inito();
+        if (!isNetworkConnected()){
+            errorAlert("Nem sikerült kapcsolódni a hálózathoz");
+        }
         //---------------
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pb.setVisibility(View.VISIBLE);
-                if (vrfInput()) {
-                    if (input_email.getText().toString().toLowerCase().equals("admin")) {
-                        if (input_pw.getText().toString().equals("admin")) {
-                            pb.setVisibility(View.GONE);
-                            startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
-                            finish();
+                if (!isNetworkConnected()){
+                    errorAlert("Nem sikerült kapcsolódni a hálózathoz");
+                }else{
+                    pb.setVisibility(View.VISIBLE);
+                    if (vrfInput()) {
+                        btn_login.setEnabled(false);
+                        btn_login.setAlpha(0.5f);
+                        if (input_email.getText().toString().toLowerCase().equals("admin")) {
+                            if (input_pw.getText().toString().equals("admin")) {
+                                pb.setVisibility(View.GONE);
+                                startActivity(new Intent(LoginActivity.this, AdminMenuActivity.class));
+                                finish();
+                            } else {
+                                btn_login.setEnabled(true);
+                                btn_login.setAlpha(1);
+                                pb.setVisibility(View.GONE);
+                                alertLoginError();
+                            }
                         } else {
-                            pb.setVisibility(View.GONE);
-                            alertLoginError();
-                        }
-                    } else {
-                        //---------
-                        final String userName = input_email.getText().toString();
-                        final String pw = input_pw.getText().toString();
-                        //---------
-                        if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
-                            CFerenc.whereEqualTo("Email", userName)
-                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()){
-                                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                                            boolean act = (boolean) doc.get("activity");
-                                            performLogin(userName, pw, act);
-                                            pb.setVisibility(View.GONE);
-                                        }
-                                    }else{
-                                        pb.setVisibility(View.GONE);
-                                        errorAlert("Sikertelen bejelntkezés!");
-                                    }
-                                }
-                            });
-                        } else {
-                            CFerenc.whereEqualTo("UserName", userName)
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            //---------
+                            final String userName = input_email.getText().toString();
+                            final String pw = input_pw.getText().toString();
+                            //---------
+                            if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
+                                CFerenc.whereEqualTo("Email", userName)
+                                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                            if (task.isSuccessful()) {
-                                                pb.setVisibility(View.INVISIBLE);
-                                                boolean b = task.getResult().isEmpty();
-                                                if (!b) {
-                                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        if (task.isSuccessful()) {
+
+                                            boolean b = task.getResult().isEmpty();
+                                            if (!b) {
+                                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                    boolean act = (boolean) doc.get("activity");
+                                                    performLogin(userName, pw, act);
+                                                }
+                                            } else {
+                                                btn_login.setEnabled(true);
+                                                btn_login.setAlpha(1);
+                                                pb.setVisibility(View.GONE);
+                                                errorAlert("Sikertelen bejelntkezés!");
+                                            }
+                                        } else {
+                                            btn_login.setEnabled(true);
+                                            btn_login.setAlpha(1);
+                                            pb.setVisibility(View.GONE);
+                                            errorAlert("Sikertelen bejelntkezés!");
+                                        }
+                                    }
+                                });
+                            } else {
+                                CFerenc.whereEqualTo("UserName", userName)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    pb.setVisibility(View.INVISIBLE);
+                                                    boolean b = task.getResult().isEmpty();
+                                                    if (!b) {
+                                                        for (QueryDocumentSnapshot doc : task.getResult()) {
                                                             String email = (String) doc.get("Email");
                                                             boolean act = (boolean) doc.get("activity");
                                                             performLogin(email, pw, act);
-                                                            pb.setVisibility(View.GONE);
                                                         }
-                                                    }else {
+                                                    } else {
+                                                        btn_login.setEnabled(true);
+                                                        btn_login.setAlpha(1);
+                                                        pb.setVisibility(View.GONE);
+                                                        errorAlert("Hibás bejelentkezési adatok!");
+                                                    }
+                                                } else {
                                                     pb.setVisibility(View.GONE);
-                                                    errorAlert("Hibás bejelentkezési adatok!");
+                                                    errorAlert(task.getException().toString());
                                                 }
-                                            } else {
-                                                pb.setVisibility(View.GONE);
-                                                errorAlert(task.getException().toString());
                                             }
-                                        }
-                                    });
+                                        });
+                            }
                         }
                     }
                 }
@@ -127,13 +150,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
 
     //---------
     private void inito() {
         btn_login = findViewById(R.id.btn_login);
         input_email = findViewById(R.id.input_email);
         input_pw = findViewById(R.id.input_password);
-        txt_frgtnPw = findViewById(R.id.txt_frgtnPw);
         img_logo = findViewById(R.id.login_logo);
         pb = findViewById(R.id.pb_login);
         fauth = FirebaseAuth.getInstance();
@@ -165,7 +192,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //---------
     private void performLogin(String email, String pw, boolean activity) {
-        if (activity){
+        if (activity) {
+
             pb.setVisibility(View.VISIBLE);
             fauth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(
                     new OnCompleteListener<AuthResult>() {
@@ -176,6 +204,9 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, CurMenuActivity.class));
                                 finish();
                             } else {
+                                btn_login.setEnabled(true);
+                                btn_login.setAlpha(1);
+
                                 pb.setVisibility(View.GONE);
                                 AlertDialog.Builder nvldLgn = new AlertDialog.Builder(LoginActivity.this);
                                 nvldLgn.setMessage("Hibás bejelentkezési adatok!");
@@ -192,8 +223,10 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
             );
-        }else {
-          errorAlert("Hibás bejelentkezési adatok!");
+        } else {
+            btn_login.setEnabled(true);
+            btn_login.setAlpha(1);
+            errorAlert("Hibás bejelentkezési adatok!");
         }
     }
 
@@ -225,7 +258,7 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog nvldLgnDlg = nvldLgn.create();
         nvldLgnDlg.show();
     }
-  }
+}
 //-----------------------
 //    || __   ||
 //    ||=\_`\=||
